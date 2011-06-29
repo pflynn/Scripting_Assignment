@@ -11,15 +11,18 @@ else
   inarg=$filename # The filename you enter is saved as variable "inarg"
 fi  
 
-
+cp $inarg inputCopy.txt # Makes a copy of input file and names it inputCopy.txt
 
 i=1 # Sets i to 1
 	  text=$(sed -n ''$i'{p;q}' Unwanted_Strings.txt) # Sets text to the first string in the Unwanted_Strings.txt file
 	  	  
-	    until [ "$text" = "" ] # When this condition is met the loop has reached the end of the Unwanted_Strings.txt file and the loop aborts
+	     until [ "$text" = "" ] # When this condition is met the loop has reached the end of the Unwanted_Strings.txt file and the loop exits
          do
-         echo $text # Echos the string in Unwanted_Strings.txt at line $i
-	     i=$(($i+1)) # increments i by 1
-		 text=$(sed -n ''$i'{p;q}' Unwanted_Strings.txt) # Sets text to the next string in the list in Unwanted_Strings.txt
+           echo $text # Echos the string in Unwanted_Strings.txt at line $i
+		 
+		   sed "/$text/d" inputCopy.txt > tempfile.txt # Removes lines containing the string $text from inputCopy.txt and moves it to tempfile.txt
+		   mv tempfile.txt inputCopy.txt # Overwrites inputCopy with tempfile which is a copy of inputCopy with a possible change made to it.                               
+	       i=$(($i+1)) # increments i by 1
+		   text=$(sed -n ''$i'{p;q}' Unwanted_Strings.txt) # Sets text to the next string in the list in Unwanted_Strings.txt
          done
 exit
