@@ -1,16 +1,16 @@
-% coding: utf-8/d
-\documentclass [a4paper,abstracton,titlepage]{scrartcl}/d
-\pagestyle{plain}/d
-\usepackage{makeidx}/d
-\usepackage[table]{xcolor}/d
-\usepackage{color}/d
-\definecolor{LinkColor}{rgb}{0.33,0.42,0.18}/d
-\definecolor{TableEvenColor}{rgb}{0.93,1,0.8}/d
-\definecolor{TableOddColor}{rgb}{0.93,1,1}/d
-\definecolor{TableBorderColor}{rgb}{0.55,0.67,0.73}/d
-\definecolor{ListingBorderColor}{rgb}{0.55,0.55,0.55}/d
-\definecolor{ListingBackgroundColor}{rgb}{0.95,0.95,0.95}/d
-\definecolor{SidebarBorderColor}{rgb}{0.95,0.95,0.95}/d
-\definecolor{SidebarBackgroundColor}{rgb}{1,1,0.93}/d
-\usepackage{type1ec}/d
-\usepackage[english]{babel}/d
+"/% coding: utf-8/d" inputCopy.txt > tempfile.txt
+\documentclass [a4paper,abstracton,titlepage]{scrartcl}
+\pagestyle{plain}
+\usepackage{makeidx}
+\usepackage[table]{xcolor}
+\usepackage{color}
+\definecolor{LinkColor}{rgb}{0.33,0.42,0.18}
+\definecolor{TableEvenColor}{rgb}{0.93,1,0.8}
+\definecolor{TableOddColor}{rgb}{0.93,1,1}
+\definecolor{TableBorderColor}{rgb}{0.55,0.67,0.73}
+\definecolor{ListingBorderColor}{rgb}{0.55,0.55,0.55}
+\definecolor{ListingBackgroundColor}{rgb}{0.95,0.95,0.95}
+\definecolor{SidebarBorderColor}{rgb}{0.95,0.95,0.95}
+\definecolor{SidebarBackgroundColor}{rgb}{1,1,0.93}
+\usepackage{type1ec}
+\usepackage[english]{babel}

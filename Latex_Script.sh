@@ -22,14 +22,14 @@ i=1 # Sets i to 1
 	  #text2=$(sed -n '/[$i]/p' Unwanted_Strings.txt)
 
 	  
-	 text="$(head -n $i Unwanted_Strings.txt)"
+	 #text="$(head -n $i Unwanted_Strings.txt)"
 	  
 	 # sed "/$text/ s|$| end|"
 	  
+	  text1=$(grep ':' Unwanted_Strings.txt |-n1 -n2)
+	 
 	  
-	  
-	  
-	 echo "${text}"
+	 echo "${text}" 
 		  
 	     until [ "$text" = "" ] # When this condition is met the loop has reached the end of the Unwanted_Strings.txt file and the loop exits
          do
