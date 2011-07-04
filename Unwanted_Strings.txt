@@ -1,4 +1,4 @@
-"/% coding: utf-8/d" inputCopy.txt > tempfile.txt
+% coding: utf-8
 \documentclass [a4paper,abstracton,titlepage]{scrartcl}
 \pagestyle{plain}
 \usepackage{makeidx}
