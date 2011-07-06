@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# The tex file should be entered, not the asciidoc file.
 if [ -n "$1" ]
 # If command-line argument is present (non-empty), do the following.
 then
@@ -28,37 +29,25 @@ until [ "$text" = "" ] # When this condition is met the loop has reached the end
    text=$(sed -n ''$i'{p;q}' Unwanted_Strings.txt)  # Sets text to the next string in the list in Unwanted_Strings.txt
 done	
 cp whitepaper.tex whitepaper.txt # Converting whitepaper.tex to whitepaper.txt
+
 # Now must add remaining text to Template
 line_Num=$(wc -l < inputCopy.txt) # Number of lines in the inputCopy.txt file
-#string="T" # String at the point whare which we want to add text directly below
-while [ $line_Num -gt 0 ]
-  do 
-  
-  text=$(sed -n ''$line_Num'{p;q}' inputCopy.txt) # inputcopy.txt line pos being set to text
-# text="tes"
-	echo $line_Num
-	
-# Places text below \input{template/title} in whitepaper template
+while [ $line_Num -gt 0 ] # While variable line_Num is greater than 0
+  do   
+text=$(sed -n ''$line_Num'{p;q}' inputCopy.txt) # inputcopy.txt line pos being set to text
+# Places text below \input{template/title} in whitepaper template (one line per itteration
 sed "
 /[\*]input{template\/title}/ a\
  ${text}
 " whitepaper.txt > tempfile.txt
-
-  mv tempfile.txt whitepaper.txt
-  
-line_Num=$(($line_Num-1))
-
+ mv tempfile.txt whitepaper.txt  # Moves tempfile.txt to whitepaper.txt on each itteration
+line_Num=$(($line_Num-1)) # Decrements variable line_Num by one on each itteration
 done
-
 # Remove the inputCopy.txt file
 rm inputCopy.txt
-
 # Move whitepaper.txt to outputFile.tex
 mv whitepaper.txt outputFile.tex
 
-
-
-
-
-
-exit
+# Next step is use pdflatex to create outputFile.pdf from outputFile.tex
+pdflatex outputFile.tex
+exit # Exits script
