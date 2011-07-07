@@ -48,6 +48,19 @@ rm inputCopy.txt
 # Move whitepaper.txt to outputFile.tex
 mv whitepaper.txt outputFile.tex
 
+# Now fix par\nonindent (fix the fact that \n was seen as new line)
+sed -i "/^par$/d" outputFile.tex  # Removing lines that start with par and end with par(line just containing par)
+
+sed -i 's/par{}$//g' outputFile.tex # Removes all instances of par{} from lines that end with par{} from outputFile.tex
+#sed -n -f sedCommands.sed outputFile.tex # Move all this to sed file
+sed -i 's/^oindent{}//g' outputFile.tex # Removes all instances of oindent{} from lines that start with oindent{} from outputFile.tex 
+sed -i "/^%$/d" outputFile.tex # Removes all lines that are just % from outputFile.tex 
+
+
+
+# Must replace all instances of % with \percent i.e. \\percent
+
+
 # Next step is use pdflatex to create outputFile.pdf from outputFile.tex
-pdflatex outputFile.tex
+#pdflatex outputFile.tex
 exit # Exits script
