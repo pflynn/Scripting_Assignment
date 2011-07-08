@@ -32,9 +32,13 @@ cp whitepaper.tex whitepaper.txt # Converting whitepaper.tex to whitepaper.txt
 
 # Now must add remaining text to Template
 line_Num=$(wc -l < inputCopy.txt) # Number of lines in the inputCopy.txt file
+
+sed -i 's/^\\/\\\\\\\\/g' inputCopy.txt # Adds extra backslash to start of lines that have one backslash at start, because it will get deleted later if just one
+sed -i 's/^ \\/\\\\\\\\/g' inputCopy.txt # same with one space before backslash
 while [ $line_Num -gt 0 ] # While variable line_Num is greater than 0
   do   
 text=$(sed -n ''$line_Num'{p;q}' inputCopy.txt) # inputcopy.txt line pos being set to text
+
 # Places text below \input{template/title} in whitepaper template (one line per itteration
 sed "
 /[\*]input{template\/title}/ a\
@@ -49,7 +53,7 @@ rm inputCopy.txt
 mv whitepaper.txt outputFile.tex
 
 # Now fix par\nonindent (fix the fact that \n was seen as new line)
-sed -i "/^par$/d" outputFile.tex  # Removing lines that start with par and end with par(line just containing par)
+sed -i '/^\\par$/d' outputFile.tex  # Removing lines that start with par and end with par(line just containing par)
 
 sed -i 's/par{}$//g' outputFile.tex # Removes all instances of par{} from lines that end with par{} from outputFile.tex
 #sed -n -f sedCommands.sed outputFile.tex # Move all this to sed file
