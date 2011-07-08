@@ -6,3 +6,4 @@
 "/\end{description}/d" inputCopy.txt > tempfile.txt
 "/\label{footer}\hypertarget{footer}{}/d" inputCopy.txt > tempfile.txt
 "/\end{document}/d" inputCopy.txt > tempfile.txt
+"/begin{document}/d" inputCopy.txt > tempfile.txt
