@@ -15,6 +15,9 @@ cp $filename inputCopy.txt # Makes a copy of input file and names it inputCopy.t
 # Now must pick out author names 
 authors=$(cat inputCopy.txt | grep author{ | awk -F{ '{print $2}' |awk -F} '{print $1}')
 
+title=$(cat inputCopy.txt | grep title{ | awk -F{ '{print $2}' |awk -F} '{print $1}')
+echo $title
+
 i=1 # Sets i to 1
 text=$(sed -n ''$i'{p;q}' Unwanted_Strings.txt) # Sets text to the first string in the Unwanted_Strings.txt file 
 	
@@ -62,12 +65,12 @@ sed -i 's/par{}$//g' outputFile.tex # Removes all instances of par{} from lines 
 sed -i 's/^oindent{}//g' outputFile.tex # Removes all instances of oindent{} from lines that start with oindent{} from outputFile.tex 
 sed -i "/^%$/d" outputFile.tex # Removes all lines that are just % from outputFile.tex 
 sed -i "s/David Muldowney, Christopher Foley, Steven Davy/$authors/g" outputFile.tex # Adding authors names to output file
-
+sed -i "s/Technical Report Name/$title/g" outputFile.tex # Adding authors names to output file
 
 
 # Must replace all instances of % with \percent i.e. \\percent
 
 
 # Next step is use pdflatex to create outputFile.pdf from outputFile.tex
-pdflatex outputFile.tex
+#pdflatex outputFile.tex
 exit # Exits script
