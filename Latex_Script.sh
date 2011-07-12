@@ -12,6 +12,10 @@ else
 fi  
 
 cp $filename inputCopy.txt # Makes a copy of input file and names it inputCopy.txt
+# Now must pick out author names 
+name=$(cat inputCopy.txt | grep author{ | awk -F{ '{print $2}' |awk -F} '{print $1}')
+echo $name
+
 
 i=1 # Sets i to 1
 text=$(sed -n ''$i'{p;q}' Unwanted_Strings.txt) # Sets text to the first string in the Unwanted_Strings.txt file 
@@ -29,9 +33,6 @@ until [ "$text" = "" ] # When this condition is met the loop has reached the end
    text=$(sed -n ''$i'{p;q}' Unwanted_Strings.txt)  # Sets text to the next string in the list in Unwanted_Strings.txt
 done	
 cp whitepaper.tex whitepaper.txt # Converting whitepaper.tex to whitepaper.txt
-
-# Now must pick out author names from remaining text
-
 
 # Now must add remaining text to Template
 line_Num=$(wc -l < inputCopy.txt) # Number of lines in the inputCopy.txt file
