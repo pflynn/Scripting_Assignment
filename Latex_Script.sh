@@ -30,6 +30,9 @@ until [ "$text" = "" ] # When this condition is met the loop has reached the end
 done	
 cp whitepaper.tex whitepaper.txt # Converting whitepaper.tex to whitepaper.txt
 
+# Now must pick out author names from remaining text
+
+
 # Now must add remaining text to Template
 line_Num=$(wc -l < inputCopy.txt) # Number of lines in the inputCopy.txt file
 
@@ -59,7 +62,6 @@ sed -i 's/par{}$//g' outputFile.tex # Removes all instances of par{} from lines 
 #sed -n -f sedCommands.sed outputFile.tex # Move all this to sed file
 sed -i 's/^oindent{}//g' outputFile.tex # Removes all instances of oindent{} from lines that start with oindent{} from outputFile.tex 
 sed -i "/^%$/d" outputFile.tex # Removes all lines that are just % from outputFile.tex 
-
 
 
 # Must replace all instances of % with \percent i.e. \\percent
