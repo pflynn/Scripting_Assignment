@@ -64,8 +64,11 @@ sed -i 's/par{}$//g' outputFile.tex # Removes all instances of par{} from lines 
 #sed -n -f sedCommands.sed outputFile.tex # Move all this to sed file
 sed -i 's/^oindent{}//g' outputFile.tex # Removes all instances of oindent{} from lines that start with oindent{} from outputFile.tex 
 sed -i "/^%$/d" outputFile.tex # Removes all lines that are just % from outputFile.tex 
-sed -i "s/David Muldowney, Christopher Foley, Steven Davy/$authors/g" outputFile.tex # Adding authors names to output file
-sed -i "s/Technical Report Name/$title/g" outputFile.tex # Adding authors names to output file
+sed -i "s/{David Muldowney, Christopher Foley, Steven Davy}/$authors/g" outputFile.tex # Adding authors names to output file
+sed -i "s/{Technical Report Name}/$title/g" outputFile.tex # Adding authors names to output file
+sed -i "/{TSSG-YYYY-Area-00001}/d" outputFile.tex # Removes technical report number line from outputFile.tex
+sed -i "/{Technical Report Sub-Title}/d" outputFile.tex # Removes technical report sub title from outputFile.tex
+
 
 
 # Must replace all instances of % with \percent i.e. \\percent
