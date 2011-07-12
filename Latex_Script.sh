@@ -13,8 +13,8 @@ fi
 
 cp $filename inputCopy.txt # Makes a copy of input file and names it inputCopy.txt
 # Now must pick out author names 
-name=$(cat inputCopy.txt | grep author{ | awk -F{ '{print $2}' |awk -F} '{print $1}')
-echo $name
+authors=$(cat inputCopy.txt | grep author{ | awk -F{ '{print $2}' |awk -F} '{print $1}')
+echo $authors
 
 
 i=1 # Sets i to 1
