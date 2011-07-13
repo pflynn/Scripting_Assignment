@@ -16,7 +16,9 @@ cp $filename inputCopy.txt # Makes a copy of input file and names it inputCopy.t
 authors=$(cat inputCopy.txt | grep author{ | awk -F{ '{print $2}' |awk -F} '{print $1}')
 
 title=$(cat inputCopy.txt | grep title{ | awk -F{ '{print $2}' |awk -F} '{print $1}')
-echo $title
+
+date=$(cat inputCopy.txt | grep date{ | awk -F{ '{print $2}' |awk -F} '{print $1}')
+
 
 i=1 # Sets i to 1
 text=$(sed -n ''$i'{p;q}' Unwanted_Strings.txt) # Sets text to the first string in the Unwanted_Strings.txt file 
@@ -57,17 +59,43 @@ rm inputCopy.txt
 # Move whitepaper.txt to outputFile.tex
 mv whitepaper.txt outputFile.tex
 
-# Now fix par\nonindent (fix the fact that \n was seen as new line)
-sed -i '/^\\par$/d' outputFile.tex  # Removing lines that start with par and end with par(line just containing par)
-
-sed -i 's/par{}$//g' outputFile.tex # Removes all instances of par{} from lines that end with par{} from outputFile.tex
 #sed -n -f sedCommands.sed outputFile.tex # Move all this to sed file
+
+sed -i '/^\\par$/d' outputFile.tex  # Removing lines that start with par and end with par(line just containing par)
+sed -i 's/par{}$//g' outputFile.tex # Removes all instances of par{} from lines that end with par{} from outputFile.tex
 sed -i 's/^oindent{}//g' outputFile.tex # Removes all instances of oindent{} from lines that start with oindent{} from outputFile.tex 
 sed -i "/^%$/d" outputFile.tex # Removes all lines that are just % from outputFile.tex 
-sed -i "s/{David Muldowney, Christopher Foley, Steven Davy}/$authors/g" outputFile.tex # Adding authors names to output file
-sed -i "s/{Technical Report Name}/$title/g" outputFile.tex # Adding authors names to output file
+sed -i "/^]$/d" outputFile.tex # Removes all lines that are just ] from outputFile.tex 
+sed -i "s/^begin{/\\\begin{/g" outputFile.tex # Replaces all instances of begin{ with \\begin{ in outputFile.tex
+#sed -i '/^\$/d' outputFile.tex # Removes all lines that are just \ from outputFile.tex # cant get 2 work yet
+sed -i "s/ href{/ \\\href{/g" outputFile.tex # Replaces all instances of href{ with \href{ in outputFile.tex
+sed -i "s/ emph{/ \\\emph{/g" outputFile.tex # Replaces all instances of emph{ with \emph{ in outputFile.tex
+sed -i "s/label{/\\\label{/g" outputFile.tex # Replaces all instances of label{ with \label{ in outputFile.tex
+sed -i "s/hypertarget{/\\\hypertarget{/g" outputFile.tex # Replaces all instances of hypertarget{ with \hypertarget{ in outputFile.tex
+sed -i "s/hyperlink{/\\\hyperlink{/g" outputFile.tex # Replaces all instances of hyperlink{ with \hyperlink{ in outputFile.tex
+
+
+#### This section replaces double backslashes 
+#sed -i "s/^\\\\\\\\hypertarget{/\\\hypertarget{/g" outputFile.tex # Replaces all instances of \\hypertarget{ with \hypertarget{ in outputFile.tex
+#sed -i "s/^\\\\\\\\hyperlink{/\\\hyperlink{/g" outputFile.tex # Replaces all instances of \\hypertarget{ with \hypertarget{ in outputFile.tex
+#sed -i "s/^\\\\\\\\label{/\\\label{/g" outputFile.tex # Replaces all instances of \\hypertarget{ with \hypertarget{ in outputFile.tex
+sed -i "s/\\\\\\\\/\\\/g" outputFile.tex # Replaces all instances of \\ at start of lines with \ in outputFile.tex
+sed -i "s/^\\\$//g" outputFile.tex # Replaces all lines that are just one backslash with null
+
+
+
+
+sed -i "s/{David Muldowney, Christopher Foley, Steven Davy}/{$authors}/g" outputFile.tex # Adding authors names to output file
+sed -i "s/{Technical Report Name}/{$title}/g" outputFile.tex # Adding title to output file
+sed -i "s/{21st May 2010}/{$date}/g" outputFile.tex # Adding date to output file
+sed -i "s/ hyperlink{/ \\\hyperlink{/g" outputFile.tex # Adding date to output file
+
+
 sed -i "/{TSSG-YYYY-Area-00001}/d" outputFile.tex # Removes technical report number line from outputFile.tex
 sed -i "/{Technical Report Sub-Title}/d" outputFile.tex # Removes technical report sub title from outputFile.tex
+sed -i "/{An executive summary of what is contained in this technical report}/d" outputFile.tex # Removes executive summary section from outputFile.tex
+
+
 
 
 
@@ -75,5 +103,5 @@ sed -i "/{Technical Report Sub-Title}/d" outputFile.tex # Removes technical repo
 
 
 # Next step is use pdflatex to create outputFile.pdf from outputFile.tex
-#pdflatex outputFile.tex
+pdflatex outputFile.tex
 exit # Exits script
