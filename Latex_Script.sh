@@ -59,47 +59,29 @@ rm inputCopy.txt
 # Move whitepaper.txt to outputFile.tex
 mv whitepaper.txt outputFile.tex
 
-#sed -n -f sedCommands.sed outputFile.tex # Move all this to sed file
+sed -i -f sedCommands.sed outputFile.tex # Execute substitute commands from sed file
 
-sed -i '/^\\par$/d' outputFile.tex  # Removing lines that start with par and end with par(line just containing par)
-sed -i 's/par{}$//g' outputFile.tex # Removes all instances of par{} from lines that end with par{} from outputFile.tex
-sed -i 's/^oindent{}//g' outputFile.tex # Removes all instances of oindent{} from lines that start with oindent{} from outputFile.tex 
-sed -i "/^%$/d" outputFile.tex # Removes all lines that are just % from outputFile.tex 
-sed -i "/^]$/d" outputFile.tex # Removes all lines that are just ] from outputFile.tex 
-sed -i "s/^begin{/\\\begin{/g" outputFile.tex # Replaces all instances of begin{ with \\begin{ in outputFile.tex
-#sed -i '/^\$/d' outputFile.tex # Removes all lines that are just \ from outputFile.tex # cant get 2 work yet
-sed -i "s/ href{/ \\\href{/g" outputFile.tex # Replaces all instances of href{ with \href{ in outputFile.tex
-sed -i "s/ emph{/ \\\emph{/g" outputFile.tex # Replaces all instances of emph{ with \emph{ in outputFile.tex
-sed -i "s/label{/\\\label{/g" outputFile.tex # Replaces all instances of label{ with \label{ in outputFile.tex
-sed -i "s/hypertarget{/\\\hypertarget{/g" outputFile.tex # Replaces all instances of hypertarget{ with \hypertarget{ in outputFile.tex
-sed -i "s/hyperlink{/\\\hyperlink{/g" outputFile.tex # Replaces all instances of hyperlink{ with \hyperlink{ in outputFile.tex
-
-
-#### This section replaces double backslashes 
-#sed -i "s/^\\\\\\\\hypertarget{/\\\hypertarget{/g" outputFile.tex # Replaces all instances of \\hypertarget{ with \hypertarget{ in outputFile.tex
-#sed -i "s/^\\\\\\\\hyperlink{/\\\hyperlink{/g" outputFile.tex # Replaces all instances of \\hypertarget{ with \hypertarget{ in outputFile.tex
-#sed -i "s/^\\\\\\\\label{/\\\label{/g" outputFile.tex # Replaces all instances of \\hypertarget{ with \hypertarget{ in outputFile.tex
 sed -i "s/\\\\\\\\/\\\/g" outputFile.tex # Replaces all instances of \\ at start of lines with \ in outputFile.tex
-sed -i "s/^\\\$//g" outputFile.tex # Replaces all lines that are just one backslash with null
+#sed -i '/^\$/d' outputFile.tex # Removes all lines that are just \ from outputFile.tex # cant get 2 work yet
 
-
-
-
+# Setting report details.
 sed -i "s/{David Muldowney, Christopher Foley, Steven Davy}/{$authors}/g" outputFile.tex # Adding authors names to output file
 sed -i "s/{Technical Report Name}/{$title}/g" outputFile.tex # Adding title to output file
 sed -i "s/{21st May 2010}/{$date}/g" outputFile.tex # Adding date to output file
 sed -i "s/ hyperlink{/ \\\hyperlink{/g" outputFile.tex # Adding date to output file
 
+sed -i "s/biblist=\\\minisec{References}  begin{description} /\\\begin{itemize}/g" outputFile.tex # 
+sed -i "s/\\\end{description}/\\\end{itemize}/g" outputFile.tex # 
 
+# Removing unwanted lines from white paper template
 sed -i "/{TSSG-YYYY-Area-00001}/d" outputFile.tex # Removes technical report number line from outputFile.tex
 sed -i "/{Technical Report Sub-Title}/d" outputFile.tex # Removes technical report sub title from outputFile.tex
 sed -i "/{An executive summary of what is contained in this technical report}/d" outputFile.tex # Removes executive summary section from outputFile.tex
 
-
-
-
-
-# Must replace all instances of % with \percent i.e. \\percent
+sed -i "/basicstyle=ootnotesize/d" outputFile.tex # removes line containing the specified string
+sed -i "/^{hyperref}$/d" outputFile.tex # removes line(s) that is/are  the specified string only
+sed -i "/earpage$/d" outputFile.tex # removes line(s) that is/are  the specified string only
+sed -i "/^$/d" outputFile.tex # removes empty lines
 
 
 # Next step is use pdflatex to create outputFile.pdf from outputFile.tex
