@@ -20,5 +20,13 @@
 	s/^\\par$//g  # Removes lines that start with par and end with par(line just containing par)
 
 	s/^]$//g  # Removes all lines that are just ] from outputFile.tex 
+
+	s/^\\item\[/\\item \[/g  # Replaces all instances of \item[ with \item [ in outputFile.tex
+	
+	s/ule{/\\rule{/g  # Replaces all instances of ule{ with \rule{ in outputFile.tex
+	
+	s/ule\[/\\rule\[/g  # Replaces all instances of ule{ with \rule{ in outputFile.tex
+	
+	s/^ewcommand{/\\newcommand{/g  # Replaces all instances of ule{ with \rule{ in outputFile.tex
 	
 }
