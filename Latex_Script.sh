@@ -76,14 +76,16 @@ sed -i "s/\\\end{description}/\\\end{itemize}/g" outputFile.tex #
 # Removing unwanted lines from white paper template
 sed -i "/{TSSG-YYYY-Area-00001}/d" outputFile.tex # Removes technical report number line from outputFile.tex
 sed -i "/{Technical Report Sub-Title}/d" outputFile.tex # Removes technical report sub title from outputFile.tex
-sed -i "/{An executive summary of what is contained in this technical report}/d" outputFile.tex # Removes executive summary section from outputFile.tex
+#sed -i "/{An executive summary of what is contained in this technical report}/d" outputFile.tex # Removes executive summary section from outputFile.tex
 
 sed -i "/basicstyle=ootnotesize/d" outputFile.tex # removes line containing the specified string
 sed -i "/^{hyperref}$/d" outputFile.tex # removes line(s) that is/are  the specified string only
 sed -i "/earpage$/d" outputFile.tex # removes line(s) that is/are  the specified string only
 sed -i "/^$/d" outputFile.tex # removes empty lines
+sed -i "/^\%$/d" outputFile.tex # removes lines that are only percernt symbols
+sed -i "/^\\\\\$/d" outputFile.tex # removes lines that are only backslash symbols
 
 
 # Next step is use pdflatex to create outputFile.pdf from outputFile.tex
-pdflatex outputFile.tex
+#pdflatex outputFile.tex
 exit # Exits script
