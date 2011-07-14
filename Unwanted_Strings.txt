@@ -14,3 +14,7 @@
 "/pagebackref,/d" inputCopy.txt > tempfile.txt
 "/breaklinks=true,/d" inputCopy.txt > tempfile.txt
 "/unicode/d" inputCopy.txt > tempfile.txt
+"/\\\title{/d" inputCopy.txt > tempfile.txt
+"/\\\author{/d" inputCopy.txt > tempfile.txt
+"/\\\date{/d" inputCopy.txt > tempfile.txt
+"/\\\publishers{\\\begin{/d" inputCopy.txt > tempfile.txt
